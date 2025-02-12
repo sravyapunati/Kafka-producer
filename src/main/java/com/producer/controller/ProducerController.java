@@ -1,5 +1,6 @@
 package com.producer.controller;
 
+import com.producer.dto.EmployeeDTO;
 import com.producer.service.ProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +15,16 @@ public class ProducerController {
     @Autowired
     private ProducerService service;
 
-    @GetMapping("/get/{message}")
-    public ResponseEntity<String> getMessage(@PathVariable String message){
-        service.sendMessageToKafka(message);
-        return ResponseEntity.ok().body("sentSucessfully");
-    }
+//    @GetMapping("/get/{message}")
+//    public ResponseEntity<String> getMessage(@PathVariable String message){
+//        service.sendMessageToKafka(message);
+//        return ResponseEntity.ok().body("sentSucessfully");
+//    }
 
-    @GetMapping("/get")
-    public ResponseEntity<String> sendJson(@RequestBody String message){
-        for(int i=0;i<200;i++){
-            service.sendMessageToKafka(message);
+    @GetMapping("/send")
+    public ResponseEntity<String> sendJson(@RequestBody EmployeeDTO emp){
+        for(int i=0;i<1000;i++){
+            service.sendMessageToKafka(emp);
         }
         return ResponseEntity.ok().body("request sent Sucessfully");
     }
